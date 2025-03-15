@@ -62,8 +62,8 @@ struct MessageView: View {
 
 #Preview("Other message") {
     ZStack {
-        Color.gray
-            .ignoresSafeArea()
+        LinearGradient
+            .defaultBackground
         
         MessageView(
             width: 393,
@@ -79,8 +79,8 @@ struct MessageView: View {
 
 #Preview("My message") {
     ZStack {
-        Color.gray
-            .ignoresSafeArea()
+        LinearGradient
+            .defaultBackground
         
         MessageView(
             width: 393,
