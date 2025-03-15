@@ -37,6 +37,9 @@ struct MessageView: View {
             }
             .padding(.top, 8)
             .padding([.bottom, .horizontal], 10)
+            .border(edges: [.bottom, .trailing], cornerRadius: 14, color: .primaryWhite.opacity(0.35),
+                    isVisible: !isMine)
+            .border(edges: [.top, .leading], cornerRadius: 14, color: .primaryBlack.opacity(0.1), isVisible: !isMine)
             .background(isMine ? .primaryWhite : .primaryBlack.opacity(0.15), in: .rect(cornerRadius: 14))
             .frame(width: contentWidth, alignment: isMine ? .trailing : .leading)
         }
@@ -45,25 +48,33 @@ struct MessageView: View {
 }
 
 #Preview("Other message") {
-    MessageView(
-        width: 393,
-        message: DisplayMessage(
-            text: "Hey John, let's get together and discuss the job proposal. Does Monday Work?",
-            date: "11:48 AM",
-            isMine: false
+    ZStack {
+        MessageView(
+            width: 393,
+            message: DisplayMessage(
+                text: "Hey John, let's get together and discuss the job proposal. Does Monday Work?",
+                date: "11:48 AM",
+                isMine: false
+            )
         )
-    )
+        .padding(1)
+    }
+    .frame(height: 300)
     .background(Color.orange)
 }
 
 #Preview("My message") {
-    MessageView(
-        width: 393,
-        message: DisplayMessage(
-            text: "That would be great. Yes, I will see you on Monday.",
-            date: "1:54 PM",
-            isMine: true
+    ZStack {
+        MessageView(
+            width: 393,
+            message: DisplayMessage(
+                text: "That would be great. Yes, I will see you on Monday.",
+                date: "1:54 PM",
+                isMine: true
+            )
         )
-    )
+        .padding(1)
+    }
+    .frame(height: 300)
     .background(Color.orange)
 }
