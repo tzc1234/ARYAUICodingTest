@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MessageListView: View {
+    let responderName: String
     let messages: [DisplayMessage]
     
     var body: some View {
@@ -33,24 +34,41 @@ struct MessageListView: View {
                 }
                 .listStyle(.plain)
             }
-            .padding(.top, 12)
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                HStack {
+                    Image("avatar-sarahcarter")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 32, height: 32)
+                        .clipShape(.rect(cornerRadius: 10))
+                    
+                    Text(responderName)
+                        .font(.interSemiBold(size: 13))
+                        .foregroundStyle(.primaryWhite)
+                }
+            }
         }
     }
 }
 
 #Preview {
-    MessageListView(messages: [
-        DisplayMessage(
-            text: "Hey John, let's get together and discuss the job proposal. Does Monday Work?",
-            date: "11:48 AM",
-            isMine: false,
-            isRead: true
-        ),
-        DisplayMessage(
-            text: "That would be great. Yes, I will see you on Monday.",
-            date: "1:54 PM",
-            isMine: true,
-            isRead: true
-        ),
-    ])
+    NavigationView {
+        MessageListView(responderName: "Sarah Carter", messages: [
+            DisplayMessage(
+                text: "Hey John, let's get together and discuss the job proposal. Does Monday Work?",
+                date: "11:48 AM",
+                isMine: false,
+                isRead: true
+            ),
+            DisplayMessage(
+                text: "That would be great. Yes, I will see you on Monday.",
+                date: "1:54 PM",
+                isMine: true,
+                isRead: true
+            ),
+        ])
+    }
 }
