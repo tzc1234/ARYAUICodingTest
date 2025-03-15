@@ -38,9 +38,20 @@ struct MessageView: View {
             }
             .padding(.top, 8)
             .padding([.bottom, .horizontal], 10)
-            .border(edges: [.bottom, .trailing], cornerRadius: 14, color: .primaryWhite.opacity(0.35),
-                    isVisible: !isMine)
-            .border(edges: [.top, .leading], cornerRadius: 14, color: .primaryBlack.opacity(0.1), isVisible: !isMine)
+            .border(
+                edges: [.bottom, .trailing],
+                cornerRadius: 14,
+                color: .primaryWhite.opacity(0.35),
+                width: 1,
+                isVisible: !isMine
+            )
+            .border(
+                edges: [.top, .leading],
+                cornerRadius: 14,
+                color: .primaryBlack.opacity(0.1),
+                width: 1,
+                isVisible: !isMine
+            )
             .background(isMine ? .primaryWhite : .primaryBlack.opacity(0.15), in: .rect(cornerRadius: 14))
             .frame(width: contentWidth, alignment: isMine ? .trailing : .leading)
         }

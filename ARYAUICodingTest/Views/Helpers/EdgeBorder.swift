@@ -12,7 +12,7 @@ extension View {
     func border(edges: [Edge],
                 cornerRadius: CGFloat,
                 color: Color,
-                width: CGFloat = 1,
+                width: CGFloat,
                 isVisible: Bool = true) -> some View {
         if isVisible {
             overlay(EdgeBorder(edges: edges, cornerRadius: cornerRadius)
