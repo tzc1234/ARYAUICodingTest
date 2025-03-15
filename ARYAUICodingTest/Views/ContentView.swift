@@ -37,7 +37,6 @@ struct ContentView: View {
                 ZStack {
                     LinearGradient
                         .defaultBackground
-                        .ignoresSafeArea()
                     
                     Button("Go to Message List") {
                         isActive.toggle()

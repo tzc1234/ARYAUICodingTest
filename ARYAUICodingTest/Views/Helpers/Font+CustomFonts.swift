@@ -1,5 +1,5 @@
 //
-//  SwiftUI+Fonts.swift
+//  Font+CustomFonts.swift
 //  ARYAUICodingTest
 //
 //  Created by Tsz-Lung on 15/03/2025.
