@@ -34,7 +34,7 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
+            DispatchQueue.main.async {
                 withTransaction(noTransaction) {
                     isActive = true
                 }
