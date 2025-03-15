@@ -12,6 +12,7 @@ struct MessageView: View {
     let message: DisplayMessage
     
     private var isMine: Bool { message.isMine }
+    private var isRead: Bool { message.isRead }
     private var contentWidth: CGFloat { width * 0.7 }
     
     var body: some View {
@@ -27,7 +28,7 @@ struct MessageView: View {
                         .foregroundStyle(isMine ? .primaryBlue : .primaryWhite)
                         .frame(width: contentWidth, alignment: .trailing)
                     
-                    if isMine {
+                    if isMine && isRead {
                         Image("icon-chat-read")
                             .resizable()
                             .scaledToFit()
@@ -49,32 +50,34 @@ struct MessageView: View {
 
 #Preview("Other message") {
     ZStack {
+        Color.gray
+            .ignoresSafeArea()
+        
         MessageView(
             width: 393,
             message: DisplayMessage(
                 text: "Hey John, let's get together and discuss the job proposal. Does Monday Work?",
                 date: "11:48 AM",
-                isMine: false
+                isMine: false,
+                isRead: true
             )
         )
-        .padding(1)
     }
-    .frame(height: 300)
-    .background(Color.orange)
 }
 
 #Preview("My message") {
     ZStack {
+        Color.gray
+            .ignoresSafeArea()
+        
         MessageView(
             width: 393,
             message: DisplayMessage(
                 text: "That would be great. Yes, I will see you on Monday.",
                 date: "1:54 PM",
-                isMine: true
+                isMine: true,
+                isRead: true
             )
         )
-        .padding(1)
     }
-    .frame(height: 300)
-    .background(Color.orange)
 }

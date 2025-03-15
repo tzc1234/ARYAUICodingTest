@@ -12,4 +12,5 @@ struct DisplayMessage: Identifiable {
     let text: String
     let date: String
     let isMine: Bool
+    let isRead: Bool
 }
