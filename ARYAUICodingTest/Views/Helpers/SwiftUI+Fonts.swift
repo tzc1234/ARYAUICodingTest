@@ -17,6 +17,6 @@ extension Font {
     }
     
     static func interRegular(size: CGFloat) -> Self {
-        custom("Inter-Regular", size: size)
+        custom("Inter-Regular", size: size).weight(.medium)
     }
 }

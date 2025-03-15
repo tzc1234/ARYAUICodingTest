@@ -27,9 +27,12 @@ struct MessageListView: View {
             
             GeometryReader { proxy in
                 List(messages) { message in
-                    MessageView(width: proxy.size.width, message: message)
+                    let horizontalPadding: CGFloat = 12
+                    MessageView(width: proxy.size.width - horizontalPadding * 2, message: message)
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 14, leading: 12, bottom: 0, trailing: 12))
+                        .listRowInsets(
+                            EdgeInsets(top: 14, leading: horizontalPadding, bottom: 0, trailing: horizontalPadding)
+                        )
                         .listRowBackground(Color.clear)
                 }
                 .listStyle(.plain)
@@ -46,7 +49,7 @@ struct MessageListView: View {
                         .clipShape(.rect(cornerRadius: 10))
                     
                     Text(responderName)
-                        .font(.interSemiBold(size: 13))
+                        .font(.interSemiBold(size: 14))
                         .foregroundStyle(.primaryWhite)
                 }
             }

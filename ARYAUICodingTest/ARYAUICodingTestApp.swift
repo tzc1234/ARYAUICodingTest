@@ -26,6 +26,8 @@ struct ARYAUICodingTestApp: App {
                         isRead: true
                     ),
                 ])
-            }}
+            }
+            .preferredColorScheme(.dark)
+        }
     }
 }

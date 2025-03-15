@@ -13,20 +13,21 @@ struct MessageView: View {
     
     private var isMine: Bool { message.isMine }
     private var isRead: Bool { message.isRead }
-    private var contentWidth: CGFloat { width * 0.7 }
+    private var contentWidth: CGFloat { width * 0.75 }
     
     var body: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 0) {
                 Text(message.text)
-                    .font(isMine ? .interMedium(size: 14) : .interRegular(size: 14))
+                    .font(isMine ? .interMedium(size: 15) : .interRegular(size: 15))
                     .foregroundStyle(isMine ? .primaryBlack : .primaryWhite)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack(spacing: 4) {
                     Text(message.date)
-                        .font(.interRegular(size: 10))
+                        .font(.interRegular(size: 11))
                         .foregroundStyle(isMine ? .primaryBlue : .primaryWhite)
-                        .frame(width: contentWidth, alignment: .trailing)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                     
                     if isMine && isRead {
                         Image("icon-chat-read")
