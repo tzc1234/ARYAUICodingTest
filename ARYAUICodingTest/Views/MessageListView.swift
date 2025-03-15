@@ -7,23 +7,30 @@
 
 import SwiftUI
 
+extension LinearGradient {
+    static var defaultBackground: some View {
+        LinearGradient(
+            stops: [
+                Gradient.Stop(color: Color(red: 4 / 255, green: 141 / 255, blue: 245 / 255), location: 0.0),
+                Gradient.Stop(color: Color(red: 20 / 255, green: 168 / 255, blue: 246 / 255), location: 0.3),
+                Gradient.Stop(color: Color(red: 145 / 255, green: 174 / 255, blue: 187 / 255), location: 0.6),
+                Gradient.Stop(color: Color(red: 233 / 255, green: 195 / 255, blue: 156 / 255), location: 0.85)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+}
+
 struct MessageListView: View {
     let responderName: String
     let messages: [DisplayMessage]
     
     var body: some View {
         ZStack {
-            LinearGradient(
-                stops: [
-                    Gradient.Stop(color: Color(red: 4 / 255, green: 141 / 255, blue: 245 / 255), location: 0.0),
-                    Gradient.Stop(color: Color(red: 20 / 255, green: 168 / 255, blue: 246 / 255), location: 0.3),
-                    Gradient.Stop(color: Color(red: 145 / 255, green: 174 / 255, blue: 187 / 255), location: 0.6),
-                    Gradient.Stop(color: Color(red: 233 / 255, green: 195 / 255, blue: 156 / 255), location: 0.85)
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            LinearGradient
+                .defaultBackground
+                .ignoresSafeArea()
             
             GeometryReader { proxy in
                 List(messages) { message in
@@ -39,20 +46,41 @@ struct MessageListView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigation) {
                 HStack {
-                    Image("avatar-sarahcarter")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 32, height: 32)
-                        .clipShape(.rect(cornerRadius: 10))
-                    
-                    Text(responderName)
-                        .font(.interSemiBold(size: 14))
-                        .foregroundStyle(.primaryWhite)
+                    backButton
+                    responderView
                 }
             }
+        }
+    }
+    
+    private var backButton: some View {
+        Button {
+            // No back action in this coding test.
+        } label: {
+            Image("icon-arrow-previous")
+                .resizable()
+                .renderingMode(.template)
+                .foregroundColor(.primaryWhite)
+                .scaledToFit()
+                .frame(width: 15, height: 15)
+        }
+    }
+    
+    private var responderView: some View {
+        HStack(spacing: 7) {
+            Image("avatar-sarahcarter")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 32, height: 32)
+                .clipShape(.rect(cornerRadius: 10))
+            
+            Text(responderName)
+                .font(.interSemiBold(size: 14))
+                .foregroundStyle(.primaryWhite)
         }
     }
 }
