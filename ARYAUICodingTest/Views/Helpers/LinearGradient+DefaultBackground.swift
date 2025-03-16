@@ -17,7 +17,7 @@ extension LinearGradient {
                 Gradient.Stop(color: Color(red: 233 / 255, green: 195 / 255, blue: 156 / 255), location: 0.85)
             ],
             startPoint: .topLeading,
-            endPoint: .bottomTrailing
+            endPoint: UnitPoint(x: 1.6, y: 0.6)
         )
         .ignoresSafeArea()
     }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MessageListView: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var inputText = ""
+    @State private var showSendButton = false
     
     let responderName: String
     let messages: [DisplayMessage]
@@ -18,17 +20,62 @@ struct MessageListView: View {
             LinearGradient
                 .defaultBackground
             
-            GeometryReader { proxy in
-                List(messages) { message in
-                    let horizontalPadding: CGFloat = 12
-                    MessageView(width: proxy.size.width - horizontalPadding * 2, message: message)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(
-                            EdgeInsets(top: 14, leading: horizontalPadding, bottom: 0, trailing: horizontalPadding)
-                        )
-                        .listRowBackground(Color.clear)
+            VStack {
+                GeometryReader { proxy in
+                    List(messages) { message in
+                        let horizontalPadding: CGFloat = 12
+                        MessageView(width: proxy.size.width - horizontalPadding * 2, message: message)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(
+                                EdgeInsets(top: 14, leading: horizontalPadding, bottom: 0, trailing: horizontalPadding)
+                            )
+                            .listRowBackground(Color.clear)
+                    }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
+                
+                HStack(spacing: 12) {
+                    Button {
+                        
+                    } label: {
+                        Image("icon-plus")
+                            .resizable()
+                            .frame(width: 14, height: 14)
+                    }
+                    .frame(width: 28)
+                    
+                    HStack(spacing: 10) {
+                        TextField("", text: $inputText, prompt: Text("Message").foregroundColor(.primaryWhite))
+                            .foregroundStyle(.primaryWhite)
+                            .font(.interRegular(size: 15))
+                            .frame(height: 30)
+                            .padding(.leading, 10)
+                        
+                        Button {
+                            print("Send message button tapped.")
+                        } label: {
+                            Color.primaryWhite
+                                .frame(width: 24, height: 24)
+                                .clipShape(.circle)
+                                .overlay {
+                                    Image("icon-sendmessage")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundStyle(.sendMessageBrown)
+                                        .frame(width: 12, height: 12)
+                                }
+                        }
+                        .scaleEffect(showSendButton ? 1 : 0)
+                        .opacity(showSendButton ? 1 : 0)
+                        .animation(Animation.timingCurve(0.15, 0.97, 0.47, 0.97, duration: 0.3), value: showSendButton)
+                    }
+                    .padding([.top, .trailing, .bottom], 4)
+                    .border(edges: [.trailing, .bottom], cornerRadius: 20, color: .primaryWhite.opacity(0.35), width: 1)
+                    .border(edges: [.leading, .top], cornerRadius: 20, color: .primaryBlack.opacity(0.1), width: 1)
+                    .background(.primaryBlack.opacity(0.05), in: .rect(cornerRadius: 30))
+                    .onChange(of: inputText) { showSendButton = !$0.isEmpty }
+                }
+                .padding(.horizontal, 12)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
