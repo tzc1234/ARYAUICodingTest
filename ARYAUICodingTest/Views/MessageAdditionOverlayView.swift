@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct MessageAdditionOverlayView: View {
+    @State private var screenSize: CGSize = .zero
     @State private var isAnimating = false
     
+    @Binding var plusButtonFrame: CGRect
     let backgroundTapped: () -> Void
     
     var body: some View {
@@ -23,7 +25,7 @@ struct MessageAdditionOverlayView: View {
                     }
                     
                     // So here using the good old asyncAfter trick.
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                         backgroundTapped()
                     }
                 }
@@ -65,13 +67,26 @@ struct MessageAdditionOverlayView: View {
                     )
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 60)
-                .scaleEffect(isAnimating ? 1 : 0.2, anchor: .bottomLeading)
+                // Ensure the message addition overlay items just above the plus button.
+                .padding(.bottom, screenSize.height - plusButtonFrame.minY)
+                .scaleEffect(
+                    isAnimating ? 1 : 0.2,
+                    // Scale begin/end at plus button max X and Y.
+                    anchor: UnitPoint(
+                        x: plusButtonFrame.maxX / screenSize.width,
+                        y: plusButtonFrame.maxY / screenSize.height
+                    )
+                )
+                
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .opacity(isAnimating ? 1 : 0)
         .onAppear {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                screenSize = windowScene.screen.bounds.size
+            }
+            
             // Wait the view ready, then animating.
             DispatchQueue.main.async {
                 withAnimation(.cubicBezier(duration: 0.6)) {
@@ -129,6 +144,6 @@ struct BackgroundBlurView: UIViewRepresentable {
 }
 
 #Preview {
-    MessageAdditionOverlayView() {}
+    MessageAdditionOverlayView(plusButtonFrame: .constant(.init(x: 19, y: 792, width: 14, height: 14))) {}
         .background(.red)
 }

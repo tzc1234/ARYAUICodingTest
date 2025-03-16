@@ -12,6 +12,8 @@ struct MessageListView: View {
     @State private var inputText = ""
     @State private var showSendButton = false
     @State private var isFullScreenCoverPresented = false
+    @State private var plusButtonFrame: CGRect = .zero
+    @FocusState private var inputTextFieldFocused: Bool
     
     let responderName: String
     let messages: [DisplayMessage]
@@ -43,6 +45,14 @@ struct MessageListView: View {
                     } label: {
                         Image("icon-plus")
                             .resizable()
+                            .background(
+                                GeometryReader { proxy -> Color in
+                                    DispatchQueue.main.async {
+                                        plusButtonFrame = proxy.frame(in: .global)
+                                    }
+                                    return .clear
+                                }
+                            )
                             .frame(width: 14, height: 14)
                     }
                     .frame(width: 28)
@@ -53,9 +63,10 @@ struct MessageListView: View {
                             .font(.interRegular(size: 15))
                             .frame(height: 30)
                             .padding(.leading, 10)
+                            .focused($inputTextFieldFocused)
                         
                         Button {
-                            print("Send message button tapped.")
+                            inputTextFieldFocused = false
                         } label: {
                             Color.primaryWhite
                                 .frame(width: 24, height: 24)
@@ -92,7 +103,7 @@ struct MessageListView: View {
             }
         }
         .fullScreenCover(isPresented: $isFullScreenCoverPresented) {
-            MessageAdditionOverlayView() {
+            MessageAdditionOverlayView(plusButtonFrame: $plusButtonFrame) {
                 withTransaction(.none) {
                     isFullScreenCoverPresented = false
                 }
