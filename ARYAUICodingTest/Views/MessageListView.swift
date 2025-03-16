@@ -38,50 +38,15 @@ struct MessageListView: View {
                 }
                 
                 HStack(spacing: 12) {
-                    Button {
-                        withTransaction(.none) {
-                            isFullScreenCoverPresented = true
-                        }
-                    } label: {
-                        Image("icon-plus")
-                            .resizable()
-                            .background(
-                                GeometryReader { proxy -> Color in
-                                    DispatchQueue.main.async {
-                                        plusButtonFrame = proxy.frame(in: .global)
-                                    }
-                                    return .clear
-                                }
-                            )
-                            .frame(width: 14, height: 14)
-                    }
-                    .frame(width: 28)
+                    plusButton
                     
                     HStack(spacing: 10) {
-                        TextField("", text: $inputText, prompt: Text("Message").foregroundColor(.primaryWhite))
-                            .foregroundStyle(.primaryWhite)
-                            .font(.interRegular(size: 15))
-                            .frame(height: 30)
-                            .padding(.leading, 10)
-                            .focused($inputTextFieldFocused)
+                        inputTextField
                         
-                        Button {
-                            inputTextFieldFocused = false
-                        } label: {
-                            Color.primaryWhite
-                                .frame(width: 24, height: 24)
-                                .clipShape(.circle)
-                                .overlay {
-                                    Image("icon-sendmessage")
-                                        .resizable()
-                                        .renderingMode(.template)
-                                        .foregroundStyle(.sendMessageBrown)
-                                        .frame(width: 12, height: 12)
-                                }
-                        }
-                        .scaleEffect(showSendButton ? 1 : 0)
-                        .opacity(showSendButton ? 1 : 0)
-                        .animation(.cubicBezier(duration: 0.3), value: showSendButton)
+                        sendMessageButton
+                            .scaleEffect(showSendButton ? 1 : 0)
+                            .opacity(showSendButton ? 1 : 0)
+                            .animation(.cubicBezier(duration: 0.3), value: showSendButton)
                     }
                     .padding([.top, .trailing, .bottom], 4)
                     .border(edges: [.trailing, .bottom], radius: 20, color: .primaryWhite.opacity(0.35), width: 1)
@@ -104,9 +69,7 @@ struct MessageListView: View {
         }
         .fullScreenCover(isPresented: $isFullScreenCoverPresented) {
             MessageAdditionOverlayView(plusButtonFrame: $plusButtonFrame) {
-                withTransaction(.none) {
-                    isFullScreenCoverPresented = false
-                }
+                withTransaction(.none) { isFullScreenCoverPresented = false }
             }
         }
     }
@@ -133,6 +96,51 @@ struct MessageListView: View {
             Text(responderName)
                 .font(.interSemiBold(size: 14))
                 .foregroundStyle(.primaryWhite)
+        }
+    }
+    
+    private var plusButton: some View {
+        Button {
+            withTransaction(.none) { isFullScreenCoverPresented = true }
+        } label: {
+            Image("icon-plus")
+                .resizable()
+                .background(
+                    GeometryReader { proxy -> Color in
+                        DispatchQueue.main.async {
+                            plusButtonFrame = proxy.frame(in: .global)
+                        }
+                        return .clear
+                    }
+                )
+                .frame(width: 14, height: 14)
+        }
+        .frame(width: 28)
+    }
+    
+    private var inputTextField: some View {
+        TextField("", text: $inputText, prompt: Text("Message").foregroundColor(.primaryWhite))
+            .foregroundStyle(.primaryWhite)
+            .font(.interRegular(size: 15))
+            .frame(height: 30)
+            .padding(.leading, 10)
+            .focused($inputTextFieldFocused)
+    }
+    
+    private var sendMessageButton: some View {
+        Button {
+            inputTextFieldFocused = false
+        } label: {
+            Color.primaryWhite
+                .frame(width: 24, height: 24)
+                .clipShape(.circle)
+                .overlay {
+                    Image("icon-sendmessage")
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundStyle(.sendMessageBrown)
+                        .frame(width: 12, height: 12)
+                }
         }
     }
 }
