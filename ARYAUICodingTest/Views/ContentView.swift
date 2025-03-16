@@ -10,12 +10,6 @@ import SwiftUI
 struct ContentView: View {
     @State private var isActive = false
     
-    private let noTransaction = {
-        var transaction = Transaction()
-        transaction.disablesAnimations = true
-        return transaction
-    }()
-    
     var body: some View {
         NavigationView {
             NavigationLink(isActive: $isActive) {
@@ -35,7 +29,7 @@ struct ContentView: View {
         }
         .onAppear {
             DispatchQueue.main.async {
-                withTransaction(noTransaction) {
+                withTransaction(.none) {
                     isActive = true
                 }
             }
