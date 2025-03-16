@@ -70,7 +70,7 @@ struct MessageListView: View {
                         }
                         .scaleEffect(showSendButton ? 1 : 0)
                         .opacity(showSendButton ? 1 : 0)
-                        .animation(Animation.timingCurve(0.15, 0.97, 0.47, 0.97, duration: 0.3), value: showSendButton)
+                        .animation(.cubicBezier(duration: 0.3), value: showSendButton)
                     }
                     .padding([.top, .trailing, .bottom], 4)
                     .border(edges: [.trailing, .bottom], radius: 20, color: .primaryWhite.opacity(0.35), width: 1)
