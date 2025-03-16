@@ -11,6 +11,7 @@ struct MessageListView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var inputText = ""
     @State private var showSendButton = false
+    @State private var isFullScreenCoverPresented = false
     
     let responderName: String
     let messages: [DisplayMessage]
@@ -36,7 +37,9 @@ struct MessageListView: View {
                 
                 HStack(spacing: 12) {
                     Button {
-                        
+                        withTransaction(.none) {
+                            isFullScreenCoverPresented = true
+                        }
                     } label: {
                         Image("icon-plus")
                             .resizable()
@@ -85,6 +88,13 @@ struct MessageListView: View {
                 HStack(spacing: 16) {
                     backButton
                     responderView
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $isFullScreenCoverPresented) {
+            MessageAdditionOverlayView() {
+                withTransaction(.none) {
+                    isFullScreenCoverPresented = false
                 }
             }
         }

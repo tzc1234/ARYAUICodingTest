@@ -1,0 +1,112 @@
+//
+//  MessageAdditionOverlayView.swift
+//  ARYAUICodingTest
+//
+//  Created by Tsz-Lung on 16/03/2025.
+//
+
+import SwiftUI
+
+struct MessageAdditionOverlayView: View {
+    let backgroundTapped: () -> Void
+    
+    var body: some View {
+        ZStack {
+            BackgroundBlurView(style: .systemUltraThinMaterial)
+                .ignoresSafeArea()
+                .onTapGesture { backgroundTapped() }
+            
+            VStack {
+                Spacer()
+                
+                VStack(alignment: .leading, spacing: 15) {
+                    MessageAdditionItemButton(
+                        title: "Camera",
+                        iconName: "icon-camera",
+                        firstGradientColor: Color(red: 189/255, green: 189/255, blue: 189/255),
+                        secondGradientColor: Color(red: 103/255, green: 103/255, blue: 103/255),
+                        buttonTapped: {}
+                    )
+                    
+                    MessageAdditionItemButton(
+                        title: "Photos",
+                        iconName: "icon-photos",
+                        firstGradientColor: Color(red: 251/255, green: 218/255, blue: 137/255),
+                        secondGradientColor: Color(red: 243/255, green: 130/255, blue: 132/255),
+                        buttonTapped: {}
+                    )
+                    
+                    MessageAdditionItemButton(
+                        title: "Files",
+                        iconName: "icon-files",
+                        firstGradientColor: Color(red: 66/255, green: 227/255, blue: 151/255),
+                        secondGradientColor: Color(red: 53/255, green: 171/255, blue: 174/255),
+                        buttonTapped: {}
+                    )
+                    
+                    MessageAdditionItemButton(
+                        title: "Audio",
+                        iconName: "icon-audio",
+                        firstGradientColor: Color(red: 214/255, green: 167/255, blue: 227/255),
+                        secondGradientColor: Color(red: 90/255, green: 129/255, blue: 232/255),
+                        buttonTapped: {}
+                    )
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 60)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+}
+
+struct MessageAdditionItemButton: View {
+    let title: String
+    let iconName: String
+    let firstGradientColor: Color
+    let secondGradientColor: Color
+    let buttonTapped: () -> Void
+    
+    var body: some View {
+        Button {
+            buttonTapped()
+        } label: {
+            HStack(spacing: 15) {
+                LinearGradient.messageAdditionButtonBackground(
+                    firstColor: firstGradientColor,
+                    secondColor: secondGradientColor
+                )
+                .frame(width: 36, height: 36)
+                .clipShape(.circle)
+                .overlay {
+                    Image(iconName)
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                }
+                
+                Text(title)
+                    .font(.interRegular(size: 17))
+                    .foregroundStyle(.primaryWhite)
+            }
+        }
+    }
+}
+
+struct BackgroundBlurView: UIViewRepresentable {
+    let style: UIBlurEffect.Style
+    
+    func makeUIView(context: Context) -> UIView {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: style))
+        DispatchQueue.main.async {
+            view.superview?.superview?.backgroundColor = .clear
+        }
+        return view
+    }
+    
+    func updateUIView(_ uiView: UIView, context: Context) {}
+}
+
+#Preview {
+    MessageAdditionOverlayView() {}
+        .background(.red)
+}
