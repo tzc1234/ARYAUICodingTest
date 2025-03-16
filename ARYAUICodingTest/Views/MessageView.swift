@@ -13,7 +13,7 @@ struct MessageView: View {
     
     private var isMine: Bool { message.isMine }
     private var isRead: Bool { message.isRead }
-    private var contentWidth: CGFloat { width * 0.75 }
+    private var contentWidth: CGFloat { width * 0.72 }
     
     var body: some View {
         ZStack {

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MessageListView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     let responderName: String
     let messages: [DisplayMessage]
     
@@ -33,7 +35,7 @@ struct MessageListView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigation) {
-                HStack {
+                HStack(spacing: 16) {
                     backButton
                     responderView
                 }
@@ -43,12 +45,10 @@ struct MessageListView: View {
     
     private var backButton: some View {
         Button {
-            // No back action in this coding test.
+            dismiss()
         } label: {
             Image("icon-arrow-previous")
                 .resizable()
-                .renderingMode(.template)
-                .foregroundColor(.primaryWhite)
                 .scaledToFit()
                 .frame(width: 15, height: 15)
         }
