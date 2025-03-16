@@ -41,14 +41,14 @@ struct MessageView: View {
             .padding([.bottom, .horizontal], 10)
             .border(
                 edges: [.bottom, .trailing],
-                cornerRadius: 14,
+                radius: 14,
                 color: .primaryWhite.opacity(0.35),
                 width: 1,
                 isVisible: !isMine
             )
             .border(
                 edges: [.top, .leading],
-                cornerRadius: 14,
+                radius: 14,
                 color: .primaryBlack.opacity(0.1),
                 width: 1,
                 isVisible: !isMine

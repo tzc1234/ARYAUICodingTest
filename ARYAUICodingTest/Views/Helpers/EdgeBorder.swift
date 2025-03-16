@@ -9,13 +9,9 @@ import SwiftUI
 
 extension View {
     @ViewBuilder
-    func border(edges: [Edge],
-                cornerRadius: CGFloat,
-                color: Color,
-                width: CGFloat,
-                isVisible: Bool = true) -> some View {
+    func border(edges: [Edge], radius: CGFloat, color: Color, width: CGFloat, isVisible: Bool = true) -> some View {
         if isVisible {
-            overlay(EdgeBorder(edges: edges, cornerRadius: cornerRadius)
+            overlay(EdgeBorder(edges: edges, radius: radius)
                 .stroke(color, lineWidth: width))
         } else {
             self
@@ -25,7 +21,7 @@ extension View {
 
 struct EdgeBorder: Shape {
     let edges: [Edge]
-    let cornerRadius: CGFloat
+    let radius: CGFloat
 
     func path(in rect: CGRect) -> Path {
         edges.map { edge in
@@ -42,29 +38,29 @@ struct EdgeBorder: Shape {
     private func topPath(width: CGFloat) -> Path {
         Path { path in
             path.addArc(
-                center: CGPoint(x: cornerRadius, y: cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: radius, y: radius),
+                radius: radius,
                 startAngle: .degrees(225),
                 endAngle: .degrees(270),
                 clockwise: false
             )
             path.addArc(
-                center: CGPoint(x: width - cornerRadius, y: cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: width - radius, y: radius),
+                radius: radius,
                 startAngle: .degrees(-90),
                 endAngle: .degrees(-45),
                 clockwise: false
             )
             path.addArc(
-                center: CGPoint(x: width - cornerRadius, y: cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: width - radius, y: radius),
+                radius: radius,
                 startAngle: .degrees(-45),
                 endAngle: .degrees(-90),
                 clockwise: true
             )
             path.addArc(
-                center: CGPoint(x: cornerRadius, y: cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: radius, y: radius),
+                radius: radius,
                 startAngle: .degrees(270),
                 endAngle: .degrees(225),
                 clockwise: true
@@ -76,29 +72,29 @@ struct EdgeBorder: Shape {
     private func trailingPath(width: CGFloat, height: CGFloat) -> Path {
         Path { path in
             path.addArc(
-                center: CGPoint(x: width - cornerRadius, y: cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: width - radius, y: radius),
+                radius: radius,
                 startAngle: .degrees(-45),
                 endAngle: .degrees(0),
                 clockwise: false
             )
             path.addArc(
-                center: CGPoint(x: width - cornerRadius, y: height - cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: width - radius, y: height - radius),
+                radius: radius,
                 startAngle: .degrees(0),
                 endAngle: .degrees(45),
                 clockwise: false
             )
             path.addArc(
-                center: CGPoint(x: width - cornerRadius, y: height - cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: width - radius, y: height - radius),
+                radius: radius,
                 startAngle: .degrees(45),
                 endAngle: .degrees(0),
                 clockwise: true
             )
             path.addArc(
-                center: CGPoint(x: width - cornerRadius, y: cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: width - radius, y: radius),
+                radius: radius,
                 startAngle: .degrees(0),
                 endAngle: .degrees(-45),
                 clockwise: true
@@ -110,29 +106,29 @@ struct EdgeBorder: Shape {
     private func bottomPath(width: CGFloat, height: CGFloat) -> Path {
         Path { path in
             path.addArc(
-                center: CGPoint(x: width - cornerRadius, y: height - cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: width - radius, y: height - radius),
+                radius: radius,
                 startAngle: .degrees(45),
                 endAngle: .degrees(90),
                 clockwise: false
             )
             path.addArc(
-                center: CGPoint(x: cornerRadius, y: height - cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: radius, y: height - radius),
+                radius: radius,
                 startAngle: .degrees(90),
                 endAngle: .degrees(135),
                 clockwise: false
             )
             path.addArc(
-                center: CGPoint(x: cornerRadius, y: height - cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: radius, y: height - radius),
+                radius: radius,
                 startAngle: .degrees(135),
                 endAngle: .degrees(90),
                 clockwise: true
             )
             path.addArc(
-                center: CGPoint(x: width - cornerRadius, y: height - cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: width - radius, y: height - radius),
+                radius: radius,
                 startAngle: .degrees(90),
                 endAngle: .degrees(45),
                 clockwise: true
@@ -144,28 +140,28 @@ struct EdgeBorder: Shape {
     private func leadingPath(height: CGFloat) -> Path {
         Path { path in
             path.addArc(
-                center: CGPoint(x: cornerRadius, y: height - cornerRadius),
-                radius: cornerRadius, startAngle: .degrees(135),
+                center: CGPoint(x: radius, y: height - radius),
+                radius: radius, startAngle: .degrees(135),
                 endAngle: .degrees(180),
                 clockwise: false
             )
             path.addArc(
-                center: CGPoint(x: cornerRadius, y: cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: radius, y: radius),
+                radius: radius,
                 startAngle: .degrees(180),
                 endAngle: .degrees(225),
                 clockwise: false
             )
             path.addArc(
-                center: CGPoint(x: cornerRadius, y: cornerRadius),
-                radius: cornerRadius,
+                center: CGPoint(x: radius, y: radius),
+                radius: radius,
                 startAngle: .degrees(225),
                 endAngle: .degrees(180),
                 clockwise: true
             )
             path.addArc(
-                center: CGPoint(x: cornerRadius, y: height - cornerRadius),
-                radius: cornerRadius, startAngle: .degrees(180),
+                center: CGPoint(x: radius, y: height - radius),
+                radius: radius, startAngle: .degrees(180),
                 endAngle: .degrees(135),
                 clockwise: true
             )
