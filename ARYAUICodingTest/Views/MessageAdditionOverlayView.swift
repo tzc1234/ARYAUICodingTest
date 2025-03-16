@@ -145,5 +145,5 @@ struct BackgroundBlurView: UIViewRepresentable {
 
 #Preview {
     MessageAdditionOverlayView(plusButtonFrame: .constant(.init(x: 19, y: 792, width: 14, height: 14))) {}
-        .background(.red)
+        .background(LinearGradient.defaultBackground)
 }
