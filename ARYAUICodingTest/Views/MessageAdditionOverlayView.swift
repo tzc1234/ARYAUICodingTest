@@ -8,13 +8,25 @@
 import SwiftUI
 
 struct MessageAdditionOverlayView: View {
+    @State private var isAnimating = false
+    
     let backgroundTapped: () -> Void
     
     var body: some View {
         ZStack {
             BackgroundBlurView(style: .systemUltraThinMaterial)
                 .ignoresSafeArea()
-                .onTapGesture { backgroundTapped() }
+                .onTapGesture {
+                    // Only from iOS 17 we get the completion version of withAnimation.
+                    withAnimation(.cubicBezier(duration: 0.6)) {
+                        isAnimating = false
+                    }
+                    
+                    // So here using the good old asyncAfter trick.
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        backgroundTapped()
+                    }
+                }
             
             VStack {
                 Spacer()
@@ -54,8 +66,18 @@ struct MessageAdditionOverlayView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 60)
+                .scaleEffect(isAnimating ? 1 : 0.2, anchor: .bottomLeading)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .opacity(isAnimating ? 1 : 0)
+        .onAppear {
+            // Wait the view ready, then animating.
+            DispatchQueue.main.async {
+                withAnimation(.cubicBezier(duration: 0.6)) {
+                    isAnimating = true
+                }
+            }
         }
     }
 }
