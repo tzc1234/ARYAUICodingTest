@@ -119,7 +119,7 @@ struct MessageListView: View {
     }
     
     private var inputTextField: some View {
-        TextField("", text: $inputText, prompt: Text("Message").foregroundColor(.primaryWhite))
+        TextField("", text: $inputText, prompt: Text("Message").foregroundColor(.primaryWhite.opacity(0.7)))
             .foregroundStyle(.primaryWhite)
             .font(.interRegular(size: 15))
             .frame(height: 30)
