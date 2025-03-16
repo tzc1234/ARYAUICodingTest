@@ -19,7 +19,7 @@ struct MessageAdditionOverlayView: View {
             BackgroundBlurView(style: .systemUltraThinMaterial)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    // Only from iOS 17 we get the completion version of withAnimation.
+                    // Only from iOS 17 we get the withAnimation with completion.
                     withAnimation(.cubicBezier(duration: 0.6)) {
                         isAnimating = false
                     }
@@ -87,7 +87,7 @@ struct MessageAdditionOverlayView: View {
                 screenSize = windowScene.screen.bounds.size
             }
             
-            // Wait the view ready, then animating.
+            // Wait for the view ready, then animating.
             DispatchQueue.main.async {
                 withAnimation(.cubicBezier(duration: 0.6)) {
                     isAnimating = true
