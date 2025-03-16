@@ -12,19 +12,21 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            NavigationLink(isActive: $isActive) {
-                MessageListView(responderName: "Sarah Carter", messages: .default)
-            } label: {
-                ZStack {
-                    LinearGradient
-                        .defaultBackground
-                    
-                    Button("Go to Message List") {
-                        isActive.toggle()
-                    }
-                    .font(.interRegular(size: 15))
-                    .foregroundStyle(.primaryWhite)
+            ZStack {
+                LinearGradient
+                    .defaultBackground
+                
+                NavigationLink(isActive: $isActive) {
+                    MessageListView(responderName: "Sarah Carter", messages: .default)
+                } label: {
+                    EmptyView()
                 }
+                
+                Button("Go to Message List") {
+                    isActive.toggle()
+                }
+                .font(.interRegular(size: 16))
+                .foregroundStyle(.primaryWhite)
             }
         }
         .onAppear {
