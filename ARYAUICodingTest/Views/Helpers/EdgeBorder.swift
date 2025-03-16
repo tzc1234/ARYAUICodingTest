@@ -24,18 +24,21 @@ struct EdgeBorder: Shape {
     let radius: CGFloat
 
     func path(in rect: CGRect) -> Path {
-        edges.map { edge in
+        let maxRadius = min(rect.width, rect.height) / 2
+        let adjustedRadius = radius > maxRadius ? maxRadius : radius
+        
+        return edges.map { edge in
             switch edge {
-            case .top: topPath(width: rect.width)
-            case .bottom: bottomPath(width: rect.width, height: rect.height)
-            case .leading: leadingPath(height: rect.height)
-            case .trailing: trailingPath(width: rect.width, height: rect.height)
+            case .top: topPath(width: rect.width, radius: adjustedRadius)
+            case .bottom: bottomPath(width: rect.width, height: rect.height, radius: adjustedRadius)
+            case .leading: leadingPath(height: rect.height, radius: adjustedRadius)
+            case .trailing: trailingPath(width: rect.width, height: rect.height, radius: adjustedRadius)
             }
         }
         .reduce(into: Path()) { $0.addPath($1) }
     }
     
-    private func topPath(width: CGFloat) -> Path {
+    private func topPath(width: CGFloat, radius: CGFloat) -> Path {
         Path { path in
             path.addArc(
                 center: CGPoint(x: radius, y: radius),
@@ -69,7 +72,7 @@ struct EdgeBorder: Shape {
         }
     }
     
-    private func trailingPath(width: CGFloat, height: CGFloat) -> Path {
+    private func trailingPath(width: CGFloat, height: CGFloat, radius: CGFloat) -> Path {
         Path { path in
             path.addArc(
                 center: CGPoint(x: width - radius, y: radius),
@@ -103,7 +106,7 @@ struct EdgeBorder: Shape {
         }
     }
     
-    private func bottomPath(width: CGFloat, height: CGFloat) -> Path {
+    private func bottomPath(width: CGFloat, height: CGFloat, radius: CGFloat) -> Path {
         Path { path in
             path.addArc(
                 center: CGPoint(x: width - radius, y: height - radius),
@@ -137,7 +140,7 @@ struct EdgeBorder: Shape {
         }
     }
     
-    private func leadingPath(height: CGFloat) -> Path {
+    private func leadingPath(height: CGFloat, radius: CGFloat) -> Path {
         Path { path in
             path.addArc(
                 center: CGPoint(x: radius, y: height - radius),
