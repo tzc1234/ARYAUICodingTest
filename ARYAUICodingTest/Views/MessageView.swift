@@ -13,48 +13,52 @@ struct MessageView: View {
     
     private var isMine: Bool { message.isMine }
     private var isRead: Bool { message.isRead }
-    private var contentWidth: CGFloat { width * 0.72 }
+    private var bubbleWidth: CGFloat { width * Style.Message.bubbleWidthRatio }
     
     var body: some View {
         ZStack {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: Style.Message.vStackSpacing) {
                 Text(message.text)
-                    .font(isMine ? .interMedium(size: 15) : .interRegular(size: 15))
-                    .foregroundStyle(isMine ? .primaryBlack : .primaryWhite)
+                    .font(isMine ? Style.Message.sentFont : Style.Message.receivedFont)
+                    .foregroundStyle(isMine ? Style.Message.sentColor : Style.Message.receivedColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                HStack(spacing: 4) {
+                HStack(spacing: Style.Message.dateHStackSpacing) {
                     Text(message.date)
-                        .font(.interRegular(size: 11))
-                        .foregroundStyle(isMine ? .primaryBlue : .primaryWhite)
+                        .font(Style.Message.dateFont)
+                        .foregroundStyle(isMine ? Style.Message.sentDateColor : Style.Message.receivedDateColor)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                     
                     if isMine && isRead {
-                        Image("icon-chat-read")
+                        Style.Message.iconRead
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 14, height: 14)
+                            .frame(width: Style.Message.iconReadSize, height: Style.Message.iconReadSize)
                     }
                 }
             }
-            .padding(.top, 8)
-            .padding([.bottom, .horizontal], 10)
+            .padding(.top, Style.Message.paddingTop)
+            .padding(.bottom, Style.Message.paddingBottom)
+            .padding(.horizontal, Style.Message.paddingHorizontal)
             .border(
                 edges: [.bottom, .trailing],
-                cornerRadius: 14,
-                color: .primaryWhite.opacity(0.35),
-                width: 1,
+                cornerRadius: Style.Message.cornerRadius,
+                color: Style.Message.lightBorderColor,
+                width: Style.Message.borderWidth,
                 isActive: !isMine
             )
             .border(
                 edges: [.top, .leading],
-                cornerRadius: 14,
-                color: .primaryBlack.opacity(0.1),
-                width: 1,
+                cornerRadius: Style.Message.cornerRadius,
+                color: Style.Message.darkBorderColor,
+                width: Style.Message.borderWidth,
                 isActive: !isMine
             )
-            .background(isMine ? .primaryWhite : .primaryBlack.opacity(0.15), in: .rect(cornerRadius: 14))
-            .frame(width: contentWidth, alignment: isMine ? .trailing : .leading)
+            .background(
+                isMine ? Style.Message.sentBackgroundColor : Style.Message.receivedBackgroundColor,
+                in: .rect(cornerRadius: Style.Message.cornerRadius)
+            )
+            .frame(width: bubbleWidth, alignment: isMine ? .trailing : .leading)
         }
         .frame(maxWidth: .infinity, alignment: isMine ? .trailing : .leading)
     }
@@ -62,8 +66,7 @@ struct MessageView: View {
 
 #Preview("Other message") {
     ZStack {
-        LinearGradient
-            .defaultBackground
+        Style.defaultBackground
         
         MessageView(
             width: 393,
@@ -79,8 +82,7 @@ struct MessageView: View {
 
 #Preview("My message") {
     ZStack {
-        LinearGradient
-            .defaultBackground
+        Style.defaultBackground
         
         MessageView(
             width: 393,
