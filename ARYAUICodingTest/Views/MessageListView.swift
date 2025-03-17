@@ -20,57 +20,73 @@ struct MessageListView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient
-                .defaultBackground
+            Style.defaultBackground
             
             VStack {
                 GeometryReader { proxy in
                     List(messages) { message in
-                        let horizontalPadding: CGFloat = 12
+                        let horizontalPadding = Style.Message.ListItem.horizontalPadding
                         MessageView(width: proxy.size.width - horizontalPadding * 2, message: message)
                             .listRowSeparator(.hidden)
                             .listRowInsets(
-                                EdgeInsets(top: 14, leading: horizontalPadding, bottom: 0, trailing: horizontalPadding)
+                                EdgeInsets(
+                                    top: Style.Message.ListItem.topPadding,
+                                    leading: horizontalPadding,
+                                    bottom: Style.Message.ListItem.bottomPadding,
+                                    trailing: horizontalPadding
+                                )
                             )
                             .listRowBackground(Color.clear)
                     }
                     .listStyle(.plain)
                 }
                 
-                HStack(spacing: 12) {
+                HStack(spacing: Style.Message.Input.plusButtonTrailingPadding) {
                     plusButton
                     
-                    HStack(spacing: 10) {
+                    HStack(spacing: Style.Message.Input.sendButtonLeadingPadding) {
                         inputTextField
                         
-                        sendMessageButton
+                        sendButton
                             .scaleEffect(showSendButton ? 1 : 0)
                             .opacity(showSendButton ? 1 : 0)
-                            .animation(.cubicBezier(duration: 0.3), value: showSendButton)
+                            .animation(Style.Message.Input.sendButtonAnimation, value: showSendButton)
                     }
-                    .padding([.top, .trailing, .bottom], 4)
-                    .border(edges: [.trailing, .bottom], cornerRadius: 30, color: .primaryWhite.opacity(0.35), width: 1)
-                    .border(edges: [.leading, .top], cornerRadius: 30, color: .primaryBlack.opacity(0.1), width: 1)
-                    .background(.primaryBlack.opacity(0.05), in: .rect(cornerRadius: 30))
+                    .padding(.vertical, Style.Message.Input.verticalPadding)
+                    .padding(.trailing, Style.Message.Input.trailingPadding)
+                    .border(
+                        edges: [.trailing, .bottom],
+                        cornerRadius: Style.Message.Input.cornerRadius,
+                        color: Style.Message.Input.lightBorderColor,
+                        width: Style.Message.Input.borderWidth
+                    )
+                    .border(
+                        edges: [.leading, .top],
+                        cornerRadius: Style.Message.Input.cornerRadius,
+                        color: Style.Message.Input.darkBorderColor,
+                        width: Style.Message.Input.borderWidth
+                    )
+                    .background(
+                        Style.Message.Input.backgroundColor,
+                        in: .rect(cornerRadius: Style.Message.Input.cornerRadius)
+                    )
                     .onChange(of: inputText) { showSendButton = !$0.isEmpty }
                 }
-                .padding(.bottom, 6)
-                .padding(.horizontal, 12)
+                .padding(.bottom, Style.Message.Input.bottomPadding)
+                .padding(.horizontal, Style.Message.Input.horizontalPadding)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigation) {
-                HStack(spacing: 16) {
+                HStack(spacing: Style.Message.NavBar.backButtonTrailingPadding) {
                     backButton
                     responderView
                 }
             }
         }
-        .onTapGesture {
-            inputTextFieldFocused = false
-        }
+        .onTapGesture { inputTextFieldFocused = false }
         .customFullScreenCover(isPresented: $isFullScreenCoverPresented) {
             MessageAdditionOverlayView(plusButtonFrame: $plusButtonFrame) {
                 isFullScreenCoverPresented = false
@@ -82,24 +98,27 @@ struct MessageListView: View {
         Button {
             dismiss()
         } label: {
-            Image("icon-arrow-previous")
+            Style.Message.NavBar.iconArrowPrevious
                 .resizable()
                 .scaledToFit()
-                .frame(width: 15, height: 15)
+                .frame(
+                    width: Style.Message.NavBar.iconArrowPreviousSize,
+                    height: Style.Message.NavBar.iconArrowPreviousSize
+                )
         }
     }
     
     private var responderView: some View {
-        HStack(spacing: 7) {
-            Image("avatar-sarahcarter")
+        HStack(spacing: Style.Message.NavBar.avatarResponderNameSpacing) {
+            Style.Message.NavBar.avatar
                 .resizable()
                 .scaledToFit()
-                .frame(width: 32, height: 32)
-                .clipShape(.rect(cornerRadius: 10))
+                .frame(width: Style.Message.NavBar.avatarSize, height: Style.Message.NavBar.avatarSize)
+                .clipShape(.rect(cornerRadius: Style.Message.NavBar.avatarCornerRadius))
             
             Text(responderName)
-                .font(.interSemiBold(size: 14))
-                .foregroundStyle(.primaryWhite)
+                .font(Style.Message.NavBar.responderNameFont)
+                .foregroundStyle(Style.Message.NavBar.responderNameColor)
         }
     }
     
@@ -107,7 +126,7 @@ struct MessageListView: View {
         Button {
             isFullScreenCoverPresented = true
         } label: {
-            Image("icon-plus")
+            Style.Message.Input.iconPlus
                 .resizable()
                 .background(
                     GeometryReader { proxy -> Color in
@@ -117,33 +136,37 @@ struct MessageListView: View {
                         return .clear
                     }
                 )
-                .frame(width: 14, height: 14)
+                .frame(width: Style.Message.Input.plusIconSize, height: Style.Message.Input.plusIconSize)
         }
-        .frame(width: 28)
+        .frame(width: Style.Message.Input.plusButtonSize, height: Style.Message.Input.plusButtonSize)
     }
     
     private var inputTextField: some View {
-        TextField("", text: $inputText, prompt: Text("Message").foregroundColor(.primaryWhite.opacity(0.7)))
-            .foregroundStyle(.primaryWhite)
-            .font(.interRegular(size: 15))
-            .frame(height: 30)
-            .padding(.leading, 10)
-            .focused($inputTextFieldFocused)
+        TextField("", text: $inputText,
+            prompt: Text("Message")
+                .font(Style.Message.Input.placeholderFont)
+                .foregroundColor(Style.Message.Input.placeholderColor)
+        )
+        .font(Style.Message.Input.inputTextFont)
+        .foregroundStyle(Style.Message.Input.inputTextColor)
+        .frame(height: Style.Message.Input.textFieldHeight)
+        .padding(.leading, Style.Message.Input.textFieldLeadingPadding)
+        .focused($inputTextFieldFocused)
     }
     
-    private var sendMessageButton: some View {
+    private var sendButton: some View {
         Button {
             inputTextFieldFocused = false
         } label: {
             Color.primaryWhite
-                .frame(width: 24, height: 24)
+                .frame(width: Style.Message.Input.sendButtonSize, height: Style.Message.Input.sendButtonSize)
                 .clipShape(.circle)
                 .overlay {
-                    Image("icon-sendmessage")
+                    Style.Message.Input.iconSend
                         .resizable()
                         .renderingMode(.template)
                         .foregroundStyle(.sendMessageBrown)
-                        .frame(width: 12, height: 12)
+                        .frame(width: Style.Message.Input.iconSendSize, height: Style.Message.Input.iconSendSize)
                 }
         }
     }
