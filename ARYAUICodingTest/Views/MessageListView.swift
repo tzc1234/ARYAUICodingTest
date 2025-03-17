@@ -49,8 +49,8 @@ struct MessageListView: View {
                             .animation(.cubicBezier(duration: 0.3), value: showSendButton)
                     }
                     .padding([.top, .trailing, .bottom], 4)
-                    .border(edges: [.trailing, .bottom], radius: 30, color: .primaryWhite.opacity(0.35), width: 1)
-                    .border(edges: [.leading, .top], radius: 30, color: .primaryBlack.opacity(0.1), width: 1)
+                    .border(edges: [.trailing, .bottom], cornerRadius: 30, color: .primaryWhite.opacity(0.35), width: 1)
+                    .border(edges: [.leading, .top], cornerRadius: 30, color: .primaryBlack.opacity(0.1), width: 1)
                     .background(.primaryBlack.opacity(0.05), in: .rect(cornerRadius: 30))
                     .onChange(of: inputText) { showSendButton = !$0.isEmpty }
                 }

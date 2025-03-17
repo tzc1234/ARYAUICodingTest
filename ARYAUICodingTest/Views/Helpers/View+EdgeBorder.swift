@@ -10,9 +10,13 @@ import SwiftUI
 
 extension View {
     @ViewBuilder
-    func border(edges: [Edge], radius: CGFloat, color: Color, width: CGFloat, isVisible: Bool = true) -> some View {
-        if isVisible {
-            overlay(EdgeBorder(edges: edges, radius: radius)
+    func border(edges: [Edge],
+                cornerRadius: CGFloat,
+                color: Color,
+                width: CGFloat,
+                isActive: Bool = true) -> some View {
+        if isActive {
+            overlay(EdgeBorder(edges: edges, cornerRadius: cornerRadius)
                 .stroke(color, lineWidth: width))
         } else {
             self
@@ -22,11 +26,11 @@ extension View {
 
 struct EdgeBorder: Shape {
     let edges: [Edge]
-    let radius: CGFloat
+    let cornerRadius: CGFloat
 
     func path(in rect: CGRect) -> Path {
         let maxRadius = min(rect.width, rect.height) / 2
-        let adjustedRadius = radius > maxRadius ? maxRadius : radius
+        let adjustedRadius = cornerRadius > maxRadius ? maxRadius : cornerRadius
         
         return edges.map { edge in
             switch edge {
