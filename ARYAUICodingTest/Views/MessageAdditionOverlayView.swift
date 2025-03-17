@@ -87,12 +87,7 @@ struct MessageAdditionOverlayView: View {
                 screenSize = windowScene.screen.bounds.size
             }
             
-            // Wait for the view ready, then animating.
-            DispatchQueue.main.async {
-                withAnimation(.cubicBezier(duration: 0.6)) {
-                    isAnimating = true
-                }
-            }
+            withAnimation(.cubicBezier(duration: 0.6)) { isAnimating = true }
         }
     }
 }

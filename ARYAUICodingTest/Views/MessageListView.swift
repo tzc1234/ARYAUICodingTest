@@ -67,9 +67,9 @@ struct MessageListView: View {
                 }
             }
         }
-        .fullScreenCover(isPresented: $isFullScreenCoverPresented) {
+        .customFullScreenCover(isPresented: $isFullScreenCoverPresented) {
             MessageAdditionOverlayView(plusButtonFrame: $plusButtonFrame) {
-                withTransaction(.none) { isFullScreenCoverPresented = false }
+                isFullScreenCoverPresented = false
             }
         }
     }
@@ -101,7 +101,7 @@ struct MessageListView: View {
     
     private var plusButton: some View {
         Button {
-            withTransaction(.none) { isFullScreenCoverPresented = true }
+            isFullScreenCoverPresented = true
         } label: {
             Image("icon-plus")
                 .resizable()
