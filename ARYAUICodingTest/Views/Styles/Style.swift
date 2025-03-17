@@ -37,7 +37,7 @@ enum Style {
         static var iconRead: Image { .init("icon-chat-read") }
         
         enum NavBar {
-            static let backButtonTrailingPadding: CGFloat = 16
+            static let backButtonPaddingTrailing: CGFloat = 16
             static let iconArrowPreviousSize: CGFloat = 15
             static let avatarSize: CGFloat = 32
             static let avatarCornerRadius: CGFloat = 10
@@ -52,26 +52,26 @@ enum Style {
         }
         
         enum ListItem {
-            static let horizontalPadding: CGFloat = 12
-            static let topPadding: CGFloat = 14
-            static let bottomPadding: CGFloat = 0
+            static let paddingHorizontal: CGFloat = 12
+            static let paddingTop: CGFloat = 14
+            static let paddingBottom: CGFloat = 0
         }
         
         enum Input {
-            static let plusButtonTrailingPadding: CGFloat = 12
+            static let plusButtonPaddingTrailing: CGFloat = 12
             static let plusIconSize: CGFloat = 14
             static let plusButtonSize: CGFloat = 28
-            static let sendButtonLeadingPadding: CGFloat = 10
+            static let sendButtonPaddingLeading: CGFloat = 10
             static let cornerRadius: CGFloat = 30
             static let borderWidth: CGFloat = 1
-            static let verticalPadding: CGFloat = 4
-            static let trailingPadding: CGFloat = 4
+            static let paddingVertical: CGFloat = 4
+            static let paddingTrailing: CGFloat = 4
             static let textFieldHeight: CGFloat = 30
-            static let textFieldLeadingPadding: CGFloat = 10
+            static let textFieldPaddingLeading: CGFloat = 10
             static let iconSendSize: CGFloat = 12
             static let sendButtonSize: CGFloat = 24
-            static let bottomPadding: CGFloat = 6
-            static let horizontalPadding: CGFloat = 12
+            static let paddingBottom: CGFloat = 6
+            static let paddingHorizontal: CGFloat = 12
             
             static var placeholderFont: Font { .interRegular(size: 15) }
             static var inputTextFont: Font { .interRegular(size: 15) }

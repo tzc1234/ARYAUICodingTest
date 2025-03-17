@@ -25,14 +25,14 @@ struct MessageListView: View {
             VStack {
                 GeometryReader { proxy in
                     List(messages) { message in
-                        let horizontalPadding = Style.Message.ListItem.horizontalPadding
+                        let horizontalPadding = Style.Message.ListItem.paddingHorizontal
                         MessageView(width: proxy.size.width - horizontalPadding * 2, message: message)
                             .listRowSeparator(.hidden)
                             .listRowInsets(
                                 EdgeInsets(
-                                    top: Style.Message.ListItem.topPadding,
+                                    top: Style.Message.ListItem.paddingTop,
                                     leading: horizontalPadding,
-                                    bottom: Style.Message.ListItem.bottomPadding,
+                                    bottom: Style.Message.ListItem.paddingBottom,
                                     trailing: horizontalPadding
                                 )
                             )
@@ -41,10 +41,10 @@ struct MessageListView: View {
                     .listStyle(.plain)
                 }
                 
-                HStack(spacing: Style.Message.Input.plusButtonTrailingPadding) {
+                HStack(spacing: Style.Message.Input.plusButtonPaddingTrailing) {
                     plusButton
                     
-                    HStack(spacing: Style.Message.Input.sendButtonLeadingPadding) {
+                    HStack(spacing: Style.Message.Input.sendButtonPaddingLeading) {
                         inputTextField
                         
                         sendButton
@@ -52,8 +52,8 @@ struct MessageListView: View {
                             .opacity(showSendButton ? 1 : 0)
                             .animation(Style.Message.Input.sendButtonAnimation, value: showSendButton)
                     }
-                    .padding(.vertical, Style.Message.Input.verticalPadding)
-                    .padding(.trailing, Style.Message.Input.trailingPadding)
+                    .padding(.vertical, Style.Message.Input.paddingVertical)
+                    .padding(.trailing, Style.Message.Input.paddingTrailing)
                     .border(
                         edges: [.trailing, .bottom],
                         cornerRadius: Style.Message.Input.cornerRadius,
@@ -72,15 +72,15 @@ struct MessageListView: View {
                     )
                     .onChange(of: inputText) { showSendButton = !$0.isEmpty }
                 }
-                .padding(.bottom, Style.Message.Input.bottomPadding)
-                .padding(.horizontal, Style.Message.Input.horizontalPadding)
+                .padding(.bottom, Style.Message.Input.paddingBottom)
+                .padding(.horizontal, Style.Message.Input.paddingHorizontal)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigation) {
-                HStack(spacing: Style.Message.NavBar.backButtonTrailingPadding) {
+                HStack(spacing: Style.Message.NavBar.backButtonPaddingTrailing) {
                     backButton
                     responderView
                 }
@@ -150,7 +150,7 @@ struct MessageListView: View {
         .font(Style.Message.Input.inputTextFont)
         .foregroundStyle(Style.Message.Input.inputTextColor)
         .frame(height: Style.Message.Input.textFieldHeight)
-        .padding(.leading, Style.Message.Input.textFieldLeadingPadding)
+        .padding(.leading, Style.Message.Input.textFieldPaddingLeading)
         .focused($inputTextFieldFocused)
     }
     
