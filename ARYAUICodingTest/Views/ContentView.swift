@@ -13,8 +13,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient
-                    .defaultBackground
+                Style.defaultBackground
                 
                 NavigationLink(isActive: $isActive) {
                     MessageListView(responderName: "Sarah Carter", messages: .default)
