@@ -54,6 +54,7 @@ struct MessageListView: View {
                     .background(.primaryBlack.opacity(0.05), in: .rect(cornerRadius: 30))
                     .onChange(of: inputText) { showSendButton = !$0.isEmpty }
                 }
+                .padding(.bottom, 6)
                 .padding(.horizontal, 12)
             }
         }
@@ -66,6 +67,9 @@ struct MessageListView: View {
                     responderView
                 }
             }
+        }
+        .onTapGesture {
+            inputTextFieldFocused = false
         }
         .customFullScreenCover(isPresented: $isFullScreenCoverPresented) {
             MessageAdditionOverlayView(plusButtonFrame: $plusButtonFrame) {
