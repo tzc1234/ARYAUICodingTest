@@ -13,20 +13,20 @@ enum Style {
     enum Message {
         static let bubbleWidthRatio: CGFloat = 0.72
         static let iconReadSize: CGFloat = 14
-        static let vStackSpacing: CGFloat = 0
-        static let dateHStackSpacing: CGFloat = 4
+        static let textDateSpacing: CGFloat = 0
+        static let dateIconReadSpacing: CGFloat = 4
         static let paddingTop: CGFloat = 8
         static let paddingBottom: CGFloat = 10
         static let paddingHorizontal: CGFloat = 10
         static let borderWidth: CGFloat = 1
         static let cornerRadius: CGFloat = 14
         
-        static var receivedFont: Font { .interRegular(size: 15) }
-        static var sentFont: Font { .interMedium(size: 15) }
+        static var receivedTextFont: Font { .interRegular(size: 15) }
+        static var sentTextFont: Font { .interMedium(size: 15) }
         static var dateFont: Font { .interRegular(size: 11) }
         
-        static var sentColor: Color { .primaryBlack }
-        static var receivedColor: Color { .primaryWhite }
+        static var sentTextColor: Color { .primaryBlack }
+        static var receivedTextColor: Color { .primaryWhite }
         static var sentDateColor: Color { .primaryBlue }
         static var receivedDateColor: Color { .primaryWhite }
         static var receivedBackgroundColor: Color { .primaryBlack.opacity(0.15) }

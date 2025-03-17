@@ -17,13 +17,13 @@ struct MessageView: View {
     
     var body: some View {
         ZStack {
-            VStack(alignment: .leading, spacing: Style.Message.vStackSpacing) {
+            VStack(alignment: .leading, spacing: Style.Message.textDateSpacing) {
                 Text(message.text)
-                    .font(isMine ? Style.Message.sentFont : Style.Message.receivedFont)
-                    .foregroundStyle(isMine ? Style.Message.sentColor : Style.Message.receivedColor)
+                    .font(isMine ? Style.Message.sentTextFont : Style.Message.receivedTextFont)
+                    .foregroundStyle(isMine ? Style.Message.sentTextColor : Style.Message.receivedTextColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                HStack(spacing: Style.Message.dateHStackSpacing) {
+                HStack(spacing: Style.Message.dateIconReadSpacing) {
                     Text(message.date)
                         .font(Style.Message.dateFont)
                         .foregroundStyle(isMine ? Style.Message.sentDateColor : Style.Message.receivedDateColor)
