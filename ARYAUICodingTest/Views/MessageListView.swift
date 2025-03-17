@@ -142,8 +142,10 @@ struct MessageListView: View {
     }
     
     private var inputTextField: some View {
-        TextField("", text: $inputText,
-            prompt: Text("Message")
+        TextField(
+            String(localized: "MESSAGE_INPUT_PLACEHOLDER"),
+            text: $inputText,
+            prompt: Text(String(localized: "MESSAGE_INPUT_PLACEHOLDER"))
                 .font(Style.Message.Input.placeholderFont)
                 .foregroundColor(Style.Message.Input.placeholderColor)
         )

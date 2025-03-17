@@ -22,10 +22,10 @@ struct ContentView: View {
                     EmptyView()
                 }
                 
-                Button("Go to Message List") {
+                Button(String(localized: "BUTTON_GO_TO_MESSAGE_LIST")) {
                     isActive.toggle()
                 }
-                .font(.interRegular(size: 16))
+                .font(Style.Message.sentTextFont)
                 .foregroundStyle(.primaryWhite)
             }
         }

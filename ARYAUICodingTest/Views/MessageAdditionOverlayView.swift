@@ -35,7 +35,7 @@ struct MessageAdditionOverlayView: View {
                 
                 VStack(alignment: .leading, spacing: Style.Message.Addition.vStackSpacing) {
                     MessageAdditionItemButton(
-                        title: "Camera",
+                        title: String(localized: "MESSAGE_ADDITION_ITEM_CAMERA"),
                         icon: Style.Message.Addition.iconCamera,
                         firstGradientColor: Style.Message.Addition.cameraFirstGradientColor,
                         secondGradientColor: Style.Message.Addition.cameraSecondGradientColor,
@@ -43,7 +43,7 @@ struct MessageAdditionOverlayView: View {
                     )
                     
                     MessageAdditionItemButton(
-                        title: "Photos",
+                        title: String(localized: "MESSAGE_ADDITION_ITEM_PHOTOS"),
                         icon: Style.Message.Addition.iconPhotos,
                         firstGradientColor: Style.Message.Addition.photosFirstGradientColor,
                         secondGradientColor: Style.Message.Addition.photosSecondGradientColor,
@@ -51,7 +51,7 @@ struct MessageAdditionOverlayView: View {
                     )
                     
                     MessageAdditionItemButton(
-                        title: "Files",
+                        title: String(localized: "MESSAGE_ADDITION_ITEM_FILES"),
                         icon: Style.Message.Addition.iconFiles,
                         firstGradientColor: Style.Message.Addition.fileFirstGradientColor,
                         secondGradientColor: Style.Message.Addition.fileSecondGradientColor,
@@ -59,7 +59,7 @@ struct MessageAdditionOverlayView: View {
                     )
                     
                     MessageAdditionItemButton(
-                        title: "Audio",
+                        title: String(localized: "MESSAGE_ADDITION_ITEM_AUDIO"),
                         icon: Style.Message.Addition.iconAudio,
                         firstGradientColor: Style.Message.Addition.audioFirstGradientColor,
                         secondGradientColor: Style.Message.Addition.audioSecondGradientColor,
