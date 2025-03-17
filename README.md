@@ -11,8 +11,9 @@ Thank you for your time to go through my code. If you have any problems encounte
 
 ## Tools and Frameworks
 1. Xcode
-2. SwiftUI (most)
-3. UIKit (some, for complement)
+2. Git
+3. SwiftUI (most)
+4. UIKit (some, for complement)
 
 ## Reason why...
 ### Support from iOS 15
