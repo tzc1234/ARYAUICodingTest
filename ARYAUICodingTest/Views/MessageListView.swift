@@ -165,7 +165,7 @@ struct MessageListView: View {
                     Style.Message.Input.iconSend
                         .resizable()
                         .renderingMode(.template)
-                        .foregroundStyle(.sendMessageBrown)
+                        .foregroundStyle(Style.Message.Input.iconSendColor)
                         .frame(width: Style.Message.Input.iconSendSize, height: Style.Message.Input.iconSendSize)
                 }
         }

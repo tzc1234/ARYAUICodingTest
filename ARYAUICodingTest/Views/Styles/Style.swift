@@ -81,11 +81,44 @@ enum Style {
             static var lightBorderColor: Color { .primaryWhite.opacity(0.35) }
             static var placeholderColor: Color { .primaryWhite.opacity(0.7) }
             static var inputTextColor: Color { .primaryWhite }
+            static var iconSendColor: Color { Color(red: 201/255, green: 177/255, blue: 144/255) }
             
             static var iconPlus: Image { .init("icon-plus") }
             static var iconSend: Image { .init("icon-sendmessage") }
             
-            static var sendButtonAnimation: Animation { .cubicBezier(duration: 0.3) }
+            static var sendButtonAnimation: Animation { .cubicBezier(duration: 0.2) }
+        }
+        
+        enum Addition {
+            static let animationDuration: CGFloat = 0.6
+            static let vStackSpacing: CGFloat = 15
+            static let paddingHorizontal: CGFloat = 20
+            
+            static var cameraFirstGradientColor: Color { .init(red: 189/255, green: 189/255, blue: 189/255) }
+            static var cameraSecondGradientColor: Color { .init(red: 103/255, green: 103/255, blue: 103/255) }
+            static var photosFirstGradientColor: Color { .init(red: 251/255, green: 218/255, blue: 137/255) }
+            static var photosSecondGradientColor: Color { .init(red: 243/255, green: 130/255, blue: 132/255) }
+            static var fileFirstGradientColor: Color { .init(red: 66/255, green: 227/255, blue: 151/255) }
+            static var fileSecondGradientColor: Color { .init(red: 53/255, green: 171/255, blue: 174/255) }
+            static var audioFirstGradientColor: Color { .init(red: 214/255, green: 167/255, blue: 227/255) }
+            static var audioSecondGradientColor: Color { .init(red: 90/255, green: 129/255, blue: 232/255) }
+            
+            static var iconCamera: Image { .init("icon-camera") }
+            static var iconPhotos: Image { .init("icon-photos") }
+            static var iconFiles: Image { .init("icon-files") }
+            static var iconAudio: Image { .init("icon-audio") }
+            
+            static var animation: Animation { .cubicBezier(duration: animationDuration) }
+            
+            enum Item {
+                static let iconTitleSpacing: CGFloat = 15
+                static let iconBackgroundSize: CGFloat = 36
+                static let iconSize: CGFloat = 18
+                
+                static var titleFont: Font { .interRegular(size: 17) }
+                
+                static var titleColor: Color { .primaryWhite }
+            }
         }
     }
 }

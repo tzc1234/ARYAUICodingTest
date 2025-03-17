@@ -20,12 +20,12 @@ struct MessageAdditionOverlayView: View {
                 .ignoresSafeArea()
                 .onTapGesture {
                     // Only from iOS 17 we get the withAnimation with completion.
-                    withAnimation(.cubicBezier(duration: 0.6)) {
+                    withAnimation(Style.Message.Addition.animation) {
                         isAnimating = false
                     }
                     
                     // So here using the good old asyncAfter trick.
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Style.Message.Addition.animationDuration + 0.1) {
                         backgroundTapped()
                     }
                 }
@@ -33,44 +33,43 @@ struct MessageAdditionOverlayView: View {
             VStack {
                 Spacer()
                 
-                VStack(alignment: .leading, spacing: 15) {
+                VStack(alignment: .leading, spacing: Style.Message.Addition.vStackSpacing) {
                     MessageAdditionItemButton(
                         title: "Camera",
-                        iconName: "icon-camera",
-                        firstGradientColor: Color(red: 189/255, green: 189/255, blue: 189/255),
-                        secondGradientColor: Color(red: 103/255, green: 103/255, blue: 103/255),
+                        icon: Style.Message.Addition.iconCamera,
+                        firstGradientColor: Style.Message.Addition.cameraFirstGradientColor,
+                        secondGradientColor: Style.Message.Addition.cameraSecondGradientColor,
                         buttonTapped: {}
                     )
                     
                     MessageAdditionItemButton(
                         title: "Photos",
-                        iconName: "icon-photos",
-                        firstGradientColor: Color(red: 251/255, green: 218/255, blue: 137/255),
-                        secondGradientColor: Color(red: 243/255, green: 130/255, blue: 132/255),
+                        icon: Style.Message.Addition.iconPhotos,
+                        firstGradientColor: Style.Message.Addition.photosFirstGradientColor,
+                        secondGradientColor: Style.Message.Addition.photosSecondGradientColor,
                         buttonTapped: {}
                     )
                     
                     MessageAdditionItemButton(
                         title: "Files",
-                        iconName: "icon-files",
-                        firstGradientColor: Color(red: 66/255, green: 227/255, blue: 151/255),
-                        secondGradientColor: Color(red: 53/255, green: 171/255, blue: 174/255),
+                        icon: Style.Message.Addition.iconFiles,
+                        firstGradientColor: Style.Message.Addition.fileFirstGradientColor,
+                        secondGradientColor: Style.Message.Addition.fileSecondGradientColor,
                         buttonTapped: {}
                     )
                     
                     MessageAdditionItemButton(
                         title: "Audio",
-                        iconName: "icon-audio",
-                        firstGradientColor: Color(red: 214/255, green: 167/255, blue: 227/255),
-                        secondGradientColor: Color(red: 90/255, green: 129/255, blue: 232/255),
+                        icon: Style.Message.Addition.iconAudio,
+                        firstGradientColor: Style.Message.Addition.audioFirstGradientColor,
+                        secondGradientColor: Style.Message.Addition.audioSecondGradientColor,
                         buttonTapped: {}
                     )
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, Style.Message.Addition.paddingHorizontal)
                 // Ensure the message addition overlay items just above the plus button.
                 .padding(.bottom, screenSize.height - plusButtonFrame.minY)
-                .scaleEffect(
-                    isAnimating ? 1 : 0.2,
+                .scaleEffect(isAnimating ? 1 : 0.2,
                     // Scale begin/end at plus button max X and Y.
                     anchor: UnitPoint(
                         x: plusButtonFrame.maxX / screenSize.width,
@@ -87,14 +86,14 @@ struct MessageAdditionOverlayView: View {
                 screenSize = windowScene.screen.bounds.size
             }
             
-            withAnimation(.cubicBezier(duration: 0.6)) { isAnimating = true }
+            withAnimation(Style.Message.Addition.animation) { isAnimating = true }
         }
     }
 }
 
 struct MessageAdditionItemButton: View {
     let title: String
-    let iconName: String
+    let icon: Image
     let firstGradientColor: Color
     let secondGradientColor: Color
     let buttonTapped: () -> Void
@@ -103,22 +102,28 @@ struct MessageAdditionItemButton: View {
         Button {
             buttonTapped()
         } label: {
-            HStack(spacing: 15) {
+            HStack(spacing: Style.Message.Addition.Item.iconTitleSpacing) {
                 LinearGradient.messageAdditionButtonBackground(
                     firstColor: firstGradientColor,
                     secondColor: secondGradientColor
                 )
-                .frame(width: 36, height: 36)
+                .frame(
+                    width: Style.Message.Addition.Item.iconBackgroundSize,
+                    height: Style.Message.Addition.Item.iconBackgroundSize
+                )
                 .clipShape(.circle)
                 .overlay {
-                    Image(iconName)
+                    icon
                         .resizable()
-                        .frame(width: 18, height: 18)
+                        .frame(
+                            width: Style.Message.Addition.Item.iconSize,
+                            height: Style.Message.Addition.Item.iconSize
+                        )
                 }
                 
                 Text(title)
-                    .font(.interRegular(size: 17))
-                    .foregroundStyle(.primaryWhite)
+                    .font(Style.Message.Addition.Item.titleFont)
+                    .foregroundStyle(Style.Message.Addition.Item.titleColor)
             }
         }
     }
