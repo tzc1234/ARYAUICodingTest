@@ -25,7 +25,7 @@ struct MessageAdditionOverlayView: View {
                     }
                     
                     // So here using the good old asyncAfter trick.
-                    DispatchQueue.main.asyncAfter(deadline: .now() + Style.Message.Addition.animationDuration + 0.1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Style.Message.Addition.animationDuration) {
                         backgroundTapped()
                     }
                 }
