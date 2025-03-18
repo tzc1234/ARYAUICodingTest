@@ -16,7 +16,8 @@ struct MessageAdditionOverlayView: View {
     
     var body: some View {
         ZStack {
-            BackgroundBlurView(style: .systemUltraThinMaterial)
+            Style.Message.Addition.overlayBackgroundColor
+                .background(.ultraThinMaterial)
                 .ignoresSafeArea()
                 .onTapGesture {
                     // Only from iOS 17 we get the withAnimation with completion.

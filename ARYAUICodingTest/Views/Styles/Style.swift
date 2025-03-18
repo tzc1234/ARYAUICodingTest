@@ -94,6 +94,7 @@ enum Style {
             static let vStackSpacing: CGFloat = 15
             static let paddingHorizontal: CGFloat = 20
             
+            static var overlayBackgroundColor: Color { .primaryBlack.opacity(0.35) }
             static var cameraFirstGradientColor: Color { .init(red: 189/255, green: 189/255, blue: 189/255) }
             static var cameraSecondGradientColor: Color { .init(red: 103/255, green: 103/255, blue: 103/255) }
             static var photosFirstGradientColor: Color { .init(red: 251/255, green: 218/255, blue: 137/255) }
